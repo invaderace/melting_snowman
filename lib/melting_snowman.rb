@@ -1,4 +1,6 @@
 require_relative 'game'
 
-test = Game.new
-puts test.word
+current_game = Game.new
+
+p current_game.word_display_setup
+p current_game.word_array

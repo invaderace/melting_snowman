@@ -12,7 +12,7 @@ class Dictionary
     rand_index = rand(total_words + 1)
     @dictionary.each_with_index do |word, index|
       if index == rand_index
-        return word
+        return word.chomp
       end
     end
   end
