@@ -48,11 +48,12 @@ class Game
   end
 
   def lose?
-    true if turns_left == 0
+    true if @turns_left == 0
   end
 
   def take_turns
     turn
+    puts turns_left
     if win?
       puts congratulations
       return
@@ -76,6 +77,10 @@ class Game
       @turns_left -= 1
     end
     puts word_display
+  end
+
+  def turns_left
+    'Turns left: ' + @turns_left.to_s
   end
 
   def win?
