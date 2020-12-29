@@ -1,7 +1,7 @@
 require_relative 'dictionary'
 
 class Game
-  attr_accessor :guess, :turns_left, :word_display
+  attr_accessor :guess, :turns_left, :word_display_array
   attr_reader :word, :word_array
 
   def initialize
@@ -9,7 +9,7 @@ class Game
     @turns_left = 10
     @guess = ''
     @word_array = @word.split('')
-    @word_display = word_display_setup
+    @word_display_array = word_display_setup
   end
   
   def alphabet
@@ -22,7 +22,7 @@ class Game
     @guess = gets.chomp.downcase
     # need to check if valid, if not, ask again. 
     unless guess_valid?
-      puts "Invalid guess. Please try again."
+      puts 'Invalid guess. Please try again.'
       guess_enter
     end
   end
@@ -48,6 +48,10 @@ class Game
     #if the guess is in the word, show where.
     #if the guess isn't in the word, take_turn
     # tell them the game is over if lose? is true
+  end
+
+  def word_display
+    word_display_array.join(' ')
   end
 
   def word_display_setup
