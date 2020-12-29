@@ -1,4 +1,5 @@
 require_relative 'dictionary'
+require 'pry'
 
 class Game
   attr_accessor :guess, :turns_left, :word_display_array
@@ -26,7 +27,7 @@ class Game
   end
 
   def guess_correct?
-    true if word_array.include? guess
+    true if (word_array.include? guess) || (word_array.include? guess.upcase)
   end
 
   def guess_enter
@@ -105,11 +106,11 @@ class Game
   end
 
   def word_display_update
-    word_array.each do |i|
+    word_array.each_with_index do |letter, index|
       #compare the guess with each spot in the original word. 
       #if it's the same, update in the same index.
-      if i == guess
-        word_display_array[word_array.index(i)] = i
+      if letter.downcase == guess
+        word_display_array[index] = letter
       end
     end
   end
