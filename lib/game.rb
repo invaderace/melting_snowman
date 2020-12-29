@@ -8,6 +8,7 @@ class Game
     @word = Dictionary.new.rand_word
     @turns_left = 10
     @guess = ''
+    @letters_used = []
     @word_array = @word.split('')
     @word_display_array = word_display_setup
   end
@@ -47,6 +48,10 @@ class Game
     true if alphabet.include? guess
   end
 
+  def letters_used_display
+    'Letters used: ' + @letters_used.join(' ') + '.'
+  end
+
   def lose?
     true if @turns_left == 0
   end
@@ -76,6 +81,8 @@ class Game
     #if the guess isn't in the word, take_turn
       @turns_left -= 1
     end
+    @letters_used.push(@guess)
+    puts letters_used_display
     puts word_display
   end
 
