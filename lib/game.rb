@@ -15,6 +15,18 @@ class Game
   def alphabet
     ('a'..'z').to_a
   end
+  
+  def congratulations
+    "Congratulations, you've saved the snowman this time!"
+  end
+
+  def game_over
+    'Sorry, looks like the snowman has melted. Game over.'
+  end
+
+  def guess_correct?
+    true if word_array.include? guess
+  end
 
   def guess_enter
     # guess is gets.chomp, so ask for the entry
@@ -39,15 +51,35 @@ class Game
     true if turns_left == 0
   end
 
-  def take_turn
-    turns_left -= 1
+  def take_turns
+    turn
+    if win?
+      puts congratulations
+      return
+    elsif lose?
+      puts game_over
+      return
+    else
+      take_turns
+    end
+    # tell them the game is over if lose? is true
   end
 
   def turn
     #guess
+    guess_enter
     #if the guess is in the word, show where.
+    if guess_correct?
+      word_display_update
+    else
     #if the guess isn't in the word, take_turn
-    # tell them the game is over if lose? is true
+      @turns_left -= 1
+    end
+    puts word_display
+  end
+
+  def win?
+    true if word_array == word_display_array
   end
 
   def word_display
@@ -60,4 +92,13 @@ class Game
     end
   end
 
+  def word_display_update
+    word_array.each do |i|
+      #compare the guess with each spot in the original word. 
+      #if it's the same, update in the same index.
+      if i == guess
+        word_display_array[word_array.index(i)] = i
+      end
+    end
+  end
 end
