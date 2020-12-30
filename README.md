@@ -6,3 +6,5 @@ Learning outcomes:
 loading and using a file in the program.
 saving a file state.
 structuring the files in a library for easier reading.
+
+ascii art borrowed from Joan Stark's ASCII Art Gallery (super old!), now archived here: https://asciiart.website/index.php?art=holiday/christmas/snowman

@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'dictionary'
+require_relative 'displayable'
 require 'yaml'
 require 'pry'
 
 # Holds everything in the game.
 class Game
+  include Displayable
+
   attr_accessor :guess, :word_display_array
   attr_reader :word, :word_array
 
@@ -26,6 +29,23 @@ class Game
     "Congratulations, you've saved the snowman this time!"
   end
 
+  def display_win
+    display_game
+    3.times { puts }
+    display_text(word_display)
+    display_text(congratulations)
+  end
+
+  def display_lose
+    display_game
+    puts
+    display_text(turns_left)
+    display_text(letters_used_display)
+    display_text(word_display)
+    display_text(word_array.join(' '))
+    display_text(game_over)
+  end
+
   def game_over
     'Sorry, looks like the snowman has melted. Game over.'
   end
@@ -36,7 +56,6 @@ class Game
 
   def guess_enter
     # guess is gets.chomp, so ask for the entry
-    puts guess_prompt
     @guess = gets.chomp.downcase
     # need to check if valid, if not, ask again.
     return if guess_valid?
@@ -86,13 +105,16 @@ class Game
   end
 
   def take_turns
-    puts word_display
+    display_game
+    display_text(guess_prompt)
+    display_text(turns_left)
+    @letters_used != [] ? display_text(letters_used_display) : puts
+    display_text(word_display)
     turn
-    puts turns_left
     if win?
-      puts congratulations
+      display_win
     elsif lose?
-      puts game_over
+      display_lose
     else
       take_turns
     end
@@ -109,7 +131,6 @@ class Game
       @turns_left -= 1
     end
     @letters_used.push(@guess)
-    puts letters_used_display
   end
 
   def turns_left
