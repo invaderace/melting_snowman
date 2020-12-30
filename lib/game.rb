@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require_relative 'dictionary'
 require 'pry'
 
+# Holds everything in the game.
 class Game
-  attr_accessor :guess, :turns_left, :word_display_array
+  attr_accessor :guess, :word_display_array
   attr_reader :word, :word_array
 
   def initialize
@@ -13,11 +16,11 @@ class Game
     @word_array = @word.split('')
     @word_display_array = word_display_setup
   end
-  
+
   def alphabet
     ('a'..'z').to_a
   end
-  
+
   def congratulations
     "Congratulations, you've saved the snowman this time!"
   end
@@ -34,11 +37,11 @@ class Game
     # guess is gets.chomp, so ask for the entry
     puts guess_prompt
     @guess = gets.chomp.downcase
-    # need to check if valid, if not, ask again. 
-    unless guess_valid?
-      puts 'Invalid guess. Please try again.'
-      guess_enter
-    end
+    # need to check if valid, if not, ask again.
+    return if guess_valid?
+
+    puts 'Invalid guess. Please try again.'
+    guess_enter
   end
 
   def guess_prompt
@@ -54,7 +57,7 @@ class Game
   end
 
   def lose?
-    true if @turns_left == 0
+    true if @turns_left.zero?
   end
 
   def take_turns
@@ -62,24 +65,21 @@ class Game
     puts turns_left
     if win?
       puts congratulations
-      return
     elsif lose?
       puts game_over
-      return
     else
       take_turns
     end
-    # tell them the game is over if lose? is true
   end
 
   def turn
-    #guess
+    # guess
     guess_enter
-    #if the guess is in the word, show where.
+    # if the guess is in the word, show where.
     if guess_correct?
       word_display_update
     else
-    #if the guess isn't in the word, take_turn
+      # if the guess isn't in the word, take_turn.
       @turns_left -= 1
     end
     @letters_used.push(@guess)
@@ -100,18 +100,16 @@ class Game
   end
 
   def word_display_setup
-    word_array.map do |letter|
-      letter = '_'
+    word_array.map do
+      '_'
     end
   end
 
   def word_display_update
     word_array.each_with_index do |letter, index|
-      #compare the guess with each spot in the original word. 
-      #if it's the same, update in the same index.
-      if letter.downcase == guess
-        word_display_array[index] = letter
-      end
+      # compare the guess with each spot in the original word.
+      # if it's the same, update in the same index.
+      word_display_array[index] = letter if letter.downcase == guess
     end
   end
 end
