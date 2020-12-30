@@ -1,0 +1,21 @@
+--- !ruby/object:Game
+word: Taejon
+turns_left: 10
+guess: save
+letters_used:
+- e
+- t
+word_array:
+- T
+- a
+- e
+- j
+- o
+- n
+word_display_array:
+- T
+- _
+- e
+- _
+- _
+- _

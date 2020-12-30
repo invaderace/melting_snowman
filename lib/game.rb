@@ -40,7 +40,8 @@ class Game
     @guess = gets.chomp.downcase
     # need to check if valid, if not, ask again.
     return if guess_valid?
-
+    save?
+    
     puts 'Invalid guess. Please try again.'
     guess_enter
   end
@@ -50,23 +51,30 @@ class Game
   end
 
   def guess_valid?
-    true if (alphabet.include? guess) || guess.downcase == 'save'
+    true if (alphabet.include? guess)
   end
 
   def letters_used_display
     'Letters used: ' + @letters_used.join(' ') + '.'
   end
 
-  def load
-    filename = 'save/savegame.yaml'
-    save_file = File.open(filename, 'r')
-    savegame = YAML::load(save_file)
-    save_file.close
-    savegame
-  end
+  # def load
+  #   filename = 'save/savegame.yaml'
+  #   save_file = File.open(filename, 'r')
+  #   savegame = YAML::load(save_file)
+  #   save_file.close
+  #   savegame
+  # end
 
   def lose?
     true if @turns_left.zero?
+  end
+
+  def save?
+    if guess.downcase == 'save'
+      save
+      exit
+    end
   end
 
   def save
@@ -78,6 +86,7 @@ class Game
   end
 
   def take_turns
+    puts word_display
     turn
     puts turns_left
     if win?
@@ -101,7 +110,6 @@ class Game
     end
     @letters_used.push(@guess)
     puts letters_used_display
-    puts word_display
   end
 
   def turns_left
