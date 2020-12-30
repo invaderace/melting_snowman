@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'dictionary'
+require 'yaml'
 require 'pry'
 
 # Holds everything in the game.
@@ -45,15 +46,23 @@ class Game
   end
 
   def guess_prompt
-    'Please guess a letter from a-z.'
+    "Please guess a letter from a-z. Enter 'save' to save game and quit."
   end
 
   def guess_valid?
-    true if alphabet.include? guess
+    true if (alphabet.include? guess) || guess.downcase == 'save'
   end
 
   def letters_used_display
     'Letters used: ' + @letters_used.join(' ') + '.'
+  end
+
+  def load
+    filename = 'save/savegame.yaml'
+    save_file = File.open(filename, 'r')
+    savegame = YAML::load(save_file)
+    save_file.close
+    savegame
   end
 
   def lose?
@@ -61,7 +70,11 @@ class Game
   end
 
   def save
-    # savegame = 'save/savegame.yaml'
+    filename = 'save/savegame.yaml'
+    save_file = File.open(filename, 'w')
+    savegame = YAML::dump(self)
+    save_file.puts savegame
+    save_file.close
   end
 
   def take_turns
