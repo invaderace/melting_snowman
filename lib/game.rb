@@ -60,6 +60,10 @@ class Game
     true if @turns_left.zero?
   end
 
+  def save
+    # savegame = 'save/savegame.yaml'
+  end
+
   def take_turns
     turn
     puts turns_left
