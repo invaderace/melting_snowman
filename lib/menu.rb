@@ -8,6 +8,7 @@ class Menu
 
   def start_game
     display_menu
+    display_snowman(snowman_ten)
     display_text(new_or_save)
     answer = gets.chomp
     if answer == '1'

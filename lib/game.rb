@@ -28,9 +28,37 @@ class Game
   def congratulations
     "Congratulations, you've saved the snowman this time!"
   end
+  
+  def current_snowman
+    case @turns_left
+    when 10
+      snowman_ten
+    when 9
+      snowman_nine
+    when 8
+      snowman_eight
+    when 7
+      snowman_seven
+    when 6
+      snowman_six
+    when 5
+      snowman_five
+    when 4
+      snowman_four
+    when 3
+      snowman_three
+    when 2
+      snowman_two
+    when 1
+      snowman_one
+    else
+      snowman_zero
+    end
+  end
 
   def display_win
     display_game
+    display_snowman(current_snowman)
     3.times { puts }
     display_text(word_display)
     display_text(congratulations)
@@ -38,6 +66,7 @@ class Game
 
   def display_lose
     display_game
+    display_snowman(current_snowman)
     puts
     display_text(turns_left)
     display_text(letters_used_display)
@@ -106,6 +135,7 @@ class Game
 
   def take_turns
     display_game
+    display_snowman(current_snowman)
     display_text(guess_prompt)
     display_text(turns_left)
     @letters_used != [] ? display_text(letters_used_display) : puts

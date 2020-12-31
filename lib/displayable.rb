@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require_relative 'meltable'
+
 # Contains methods for diplaying and formatting the game title, snowman, and text.
 module Displayable
+  include Meltable
+
   def clearscreen
     system 'clear'
   end
@@ -9,13 +13,11 @@ module Displayable
   def display_menu
     clearscreen
     display_header
-    display_snowman
   end
 
   def display_game
     clearscreen
     display_header
-    display_snowman
   end
 
   def display_header
@@ -26,7 +28,7 @@ module Displayable
     4.times { puts }
   end
 
-  def display_snowman
+  def display_snowman(snowman)
     snowman.each do |line|
       puts line.center(width)
     end
