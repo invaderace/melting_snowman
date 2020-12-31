@@ -3,7 +3,6 @@
 require_relative 'dictionary'
 require_relative 'displayable'
 require 'yaml'
-require 'pry'
 
 # Holds everything in the game.
 class Game
