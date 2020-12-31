@@ -1,21 +1,29 @@
 --- !ruby/object:Game
-word: Taejon
-turns_left: 10
+word: postulancy
+turns_left: 9
 guess: save
 letters_used:
-- e
-- t
-word_array:
-- T
+- i
 - a
-- e
-- j
+word_array:
+- p
 - o
+- s
+- t
+- u
+- l
+- a
 - n
+- c
+- y
 word_display_array:
-- T
 - _
-- e
+- _
+- _
+- _
+- _
+- _
+- a
 - _
 - _
 - _

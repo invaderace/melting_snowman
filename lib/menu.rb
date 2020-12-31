@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'displayable'
 
 # Holds instructions to start the game and chooses between new and saved game.
@@ -25,7 +27,7 @@ class Menu
   def load
     filename = 'save/savegame.yaml'
     save_file = File.open(filename, 'r')
-    savegame = YAML::load(save_file)
+    savegame = YAML.load(save_file)
     save_file.close
     savegame
   end

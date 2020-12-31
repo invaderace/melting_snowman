@@ -90,16 +90,16 @@ class Game
   end
 
   def save?
-    if guess.downcase == 'save'
-      save
-      exit
-    end
+    return unless guess.downcase == 'save'
+
+    save
+    exit
   end
 
   def save
     filename = 'save/savegame.yaml'
     save_file = File.open(filename, 'w')
-    savegame = YAML::dump(self)
+    savegame = YAML.dump(self)
     save_file.puts savegame
     save_file.close
   end
