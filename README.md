@@ -8,3 +8,5 @@ saving a file state.
 structuring the files in a library for easier reading.
 
 ascii art borrowed from Joan Stark's ASCII Art Gallery (super old!), now archived here: https://asciiart.website/index.php?art=holiday/christmas/snowman
+
+2020.12.31 - The game is finished and I'm pretty satisfied. The only rubocop issue being raised is about YAML.safe_load being preferred to YAML.load, but being that this is my first project using serialization, I'm not wasting my time on that subject as I'm sure it will come up again. The only other addition I can think to add would be to have ruby find the terminal width to center the game. Perhaps at a later date!
