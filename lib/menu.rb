@@ -1,5 +1,6 @@
 require_relative 'displayable'
 
+# Holds instructions to start the game and chooses between new and saved game.
 class Menu
   include Displayable
 

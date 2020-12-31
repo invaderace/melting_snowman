@@ -59,8 +59,8 @@ class Game
     @guess = gets.chomp.downcase
     # need to check if valid, if not, ask again.
     return if guess_valid?
+
     save?
-    
     puts 'Invalid guess. Please try again.'
     guess_enter
   end
@@ -70,7 +70,7 @@ class Game
   end
 
   def guess_valid?
-    true if (alphabet.include? guess)
+    true if alphabet.include? guess
   end
 
   def letters_used_display
