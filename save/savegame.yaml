@@ -1,29 +1,27 @@
 --- !ruby/object:Game
-word: postulancy
-turns_left: 9
+word: nerviness
+turns_left: 10
 guess: save
 letters_used:
 - i
-- a
+- r
 word_array:
-- p
-- o
-- s
-- t
-- u
-- l
-- a
 - n
-- c
-- y
+- e
+- r
+- v
+- i
+- n
+- e
+- s
+- s
 word_display_array:
 - _
 - _
+- r
 - _
+- i
 - _
-- _
-- _
-- a
 - _
 - _
 - _

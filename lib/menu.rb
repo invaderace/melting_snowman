@@ -6,11 +6,14 @@ require_relative 'displayable'
 class Menu
   include Displayable
 
+  # Menu shows the snowman and asks if they want new or saved game.
   def start_game
     display_menu
-    display_snowman(snowman_ten)
-    display_text(new_or_save)
     answer = gets.chomp
+    check(answer)
+  end
+
+  def check(answer)
     if answer == '1'
       Game.new
     elsif answer == '2'
@@ -20,9 +23,10 @@ class Menu
     end
   end
 
-  # not sure if will use this.
-  def invalid_answer
-    "Sorry, please enter '1' or '2'."
+  def display_menu
+    display_refresh
+    display_snowman(snowman_ten)
+    display_text(new_or_save)
   end
 
   def load

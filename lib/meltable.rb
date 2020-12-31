@@ -223,6 +223,20 @@ module Meltable
      '                                           ',
      '                                           ']
   end
+
+  def snowman_hash
+    { 0 => snowman_zero,
+      1 => snowman_one,
+      2 => snowman_two,
+      3 => snowman_three,
+      4 => snowman_four,
+      5 => snowman_five,
+      6 => snowman_six,
+      7 => snowman_seven,
+      8 => snowman_eight,
+      9 => snowman_nine,
+      10 => snowman_ten }
+  end
   # rubocop:enable Metrics/MethodLength
 end
 # rubocop:enable Metrics/ModuleLength

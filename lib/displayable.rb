@@ -10,7 +10,7 @@ module Displayable
     system 'clear'
   end
 
-  def display_menu
+  def display_refresh
     clearscreen
     display_header
   end
@@ -41,5 +41,18 @@ module Displayable
 
   def width
     80
+  end
+
+  # Strings
+  def congratulations
+    "Congratulations, you've saved the snowman this time!"
+  end
+
+  def game_over
+    'Sorry, looks like the snowman has melted. Game over.'
+  end
+
+  def guess_prompt
+    "Please guess a letter from a-z. Enter 'save' to save game and quit."
   end
 end

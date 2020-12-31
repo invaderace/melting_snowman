@@ -25,58 +25,29 @@ class Game
     ('a'..'z').to_a
   end
 
-  def congratulations
-    "Congratulations, you've saved the snowman this time!"
-  end
-  
   def current_snowman
-    case @turns_left
-    when 10
-      snowman_ten
-    when 9
-      snowman_nine
-    when 8
-      snowman_eight
-    when 7
-      snowman_seven
-    when 6
-      snowman_six
-    when 5
-      snowman_five
-    when 4
-      snowman_four
-    when 3
-      snowman_three
-    when 2
-      snowman_two
-    when 1
-      snowman_one
-    else
-      snowman_zero
-    end
+    snowman_hash[@turns_left]
   end
 
-  def display_win
-    display_game
-    display_snowman(current_snowman)
-    3.times { puts }
-    display_text(word_display)
-    display_text(congratulations)
-  end
-
-  def display_lose
-    display_game
-    display_snowman(current_snowman)
-    puts
+  def display_game_details
+    display_top
+    display_text(guess_prompt)
     display_text(turns_left)
-    display_text(letters_used_display)
+    @letters_used != [] ? display_text(letters_used_display) : puts
     display_text(word_display)
-    display_text(word_array.join(' '))
-    display_text(game_over)
+    display_result if win? || lose?
   end
 
-  def game_over
-    'Sorry, looks like the snowman has melted. Game over.'
+  def display_result
+    display_text(congratulations) if win?
+    display_text(word_array.join(' ')) if lose?
+    display_text(game_over) if lose?
+    exit
+  end
+
+  def display_top
+    display_refresh
+    display_snowman(current_snowman)
   end
 
   def guess_correct?
@@ -84,18 +55,14 @@ class Game
   end
 
   def guess_enter
-    # guess is gets.chomp, so ask for the entry
     @guess = gets.chomp.downcase
-    # need to check if valid, if not, ask again.
+    # check that the guess is a letter.
     return if guess_valid?
 
-    save?
+    # make sure if they entered 'save' before assuming the guess is invalid.
+    save if save?
     puts 'Invalid guess. Please try again.'
     guess_enter
-  end
-
-  def guess_prompt
-    "Please guess a letter from a-z. Enter 'save' to save game and quit."
   end
 
   def guess_valid?
@@ -106,23 +73,12 @@ class Game
     'Letters used: ' + @letters_used.join(' ') + '.'
   end
 
-  # def load
-  #   filename = 'save/savegame.yaml'
-  #   save_file = File.open(filename, 'r')
-  #   savegame = YAML::load(save_file)
-  #   save_file.close
-  #   savegame
-  # end
-
   def lose?
     true if @turns_left.zero?
   end
 
   def save?
-    return unless guess.downcase == 'save'
-
-    save
-    exit
+    true if guess.downcase == 'save'
   end
 
   def save
@@ -131,35 +87,18 @@ class Game
     savegame = YAML.dump(self)
     save_file.puts savegame
     save_file.close
+    exit
   end
 
   def take_turns
-    display_game
-    display_snowman(current_snowman)
-    display_text(guess_prompt)
-    display_text(turns_left)
-    @letters_used != [] ? display_text(letters_used_display) : puts
-    display_text(word_display)
     turn
-    if win?
-      display_win
-    elsif lose?
-      display_lose
-    else
-      take_turns
-    end
+    display_game_details
+    take_turns unless win? || lose?
   end
 
   def turn
-    # guess
     guess_enter
-    # if the guess is in the word, show where.
-    if guess_correct?
-      word_display_update
-    else
-      # if the guess isn't in the word, take_turn.
-      @turns_left -= 1
-    end
+    guess_correct? ? word_display_update : @turns_left -= 1
     @letters_used.push(@guess)
   end
 
@@ -176,15 +115,12 @@ class Game
   end
 
   def word_display_setup
-    word_array.map do
-      '_'
-    end
+    word_array.map { '_' }
   end
 
   def word_display_update
     word_array.each_with_index do |letter, index|
-      # compare the guess with each spot in the original word.
-      # if it's the same, update in the same index.
+      # compare the guess with each spot in the original word. update if same.
       word_display_array[index] = letter if letter.downcase == guess
     end
   end
